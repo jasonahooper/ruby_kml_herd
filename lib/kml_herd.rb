@@ -1,5 +1,5 @@
 class KMLHerd
-  def add_placemark(name, lat, lng, desc=nil, icon=nil)
+  def add_placemark(name, lat, lng, desc=nil)
     @kml ||= KMLFile.new
     pm = KML::Placemark.new(
       :name => name,
