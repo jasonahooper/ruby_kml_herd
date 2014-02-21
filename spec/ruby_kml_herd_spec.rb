@@ -3,8 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe "RubyKmlHerd" do
   before do
     @kh = KMLHerd.new
-    @kh.add_placemark('a', 1, 1, 'test')
-    @kh.add_placemark('b', 2, 2, 'test')
+    @kh.add_placemark('a', 0, 0, 'test')
+    @kh.add_placemark('b', 4, 4, 'test')
     @kh.add_placemark('c', 10, 10, 'test')
   end
 
