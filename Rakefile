@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "ruby_kml_herd"
   gem.homepage = "http://github.com/jasonahooper/ruby_kml_herd"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{clusters kml Placemarks by zoom level}
+  gem.description = %Q{Takes a kml stream as input and generates a new kml stream with markers clustered}
   gem.email = "jason.hooper@talk21.com"
   gem.authors = ["Jason Hooper"]
   # dependencies defined in Gemfile
