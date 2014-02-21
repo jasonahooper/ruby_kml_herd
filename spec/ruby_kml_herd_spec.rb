@@ -10,9 +10,9 @@ describe "RubyKmlHerd" do
 
   it "adds placemarks to kml" do
     @kh.kml.should include('<name>a</name>')
-    @kh.kml.should include('<coordinates>1,1</coordinates>')
+    @kh.kml.should include('<coordinates>0,0</coordinates>')
     @kh.kml.should include('<name>b</name>')
-    @kh.kml.should include('<coordinates>2,2</coordinates>')
+    @kh.kml.should include('<coordinates>4,4</coordinates>')
     @kh.kml.should include('<name>c</name>')
     @kh.kml.should include('<coordinates>10,10</coordinates>')
   end
