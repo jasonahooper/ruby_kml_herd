@@ -28,7 +28,6 @@ describe "RubyKmlHerd" do
     @kh.remove_placemark(pm4)
     @kh.kml.should_not include('<name>d</name>')
     @kh.kml.should_not include('<coordinates>11,11</coordinates>')
-    binding.pry
   end
 
   it 'calculates distance correctly' do
@@ -44,7 +43,9 @@ describe "RubyKmlHerd" do
   end
 
   it 'clusters nearby points for a zoom level' do
-    cluster = @kh.cluster(2)
-    cluster.placemarks.count.should_not be(@kh.placemarks.count)
+    pms = @kh.placemarks
+    cluster = @kh.cluster!(2)
+    cluster.placemarks.count.should_not be(pms)
+    @kh.placemarks[0].class.should be(Cluster)
   end
 end

@@ -1,23 +1,7 @@
 class KMLHerd
-  class Placemark < KML::Placemark
-    attr_accessor :type
 
-    def initialize(name, lat, lng, desc=nil, type=:point)
-      super(:name => name,
-            :geometry => KML::Point.new(:coordinates =>
-              {:lat => lat, :lng => lng }
-            ),
-            :description => desc)
-    end
-
-    def lat
-      return self.geometry.coordinates[0]
-    end
-
-    def lng
-      return self.geometry.coordinates[1]
-    end
-  end
+  require 'placemark'
+  require 'cluster'
 
   def add_placemark(name, lat, lng, desc=nil)
     @pms ||= []
@@ -29,6 +13,20 @@ class KMLHerd
   def remove_placemark(pm)
     @pms.select! { |pms| pms != pm }
     pm
+  end
+
+  def cluster_pm(pm_from, pm_to)
+    if pm_from.class != Cluster && pm_to.class != Cluster
+      cls = Cluster.new('cluster', pm_from.lat, pm_from.lng, 'cluster', pm_from)
+      @pms[@pms.find_index(pm_from)] = cls
+      pm_from = cls
+    elsif pm_to.class == Cluster && pm_from.class != Cluster
+      pm_from, pm_to = pm_to, pm_from
+    elsif pm_from.class == Cluster && pm_to.class == Cluster
+      return
+    end
+    pm_from.add_placemark(pm_to)
+    remove_placemark(pm_to)
   end
 
   def kml
@@ -45,20 +43,18 @@ class KMLHerd
     @pms
   end
 
-  def cluster(zoom_level)
-    clust = self.clone
-    clust.placemarks.each do |pm_from|
-      clust.placemarks.each do |pm_to|
+  def cluster!(zoom_level)
+    self.placemarks.each do |pm_from|
+      self.placemarks.each do |pm_to|
         if pm_from != pm_to
           if KMLHerd::lat_lng_dist(pm_from.lat, pm_from.lng,
                                    pm_to.lat, pm_to.lng) < 640 # for zoom 2 for now
-            pm_from.type = :cluster
-            clust.remove_placemark(pm_to)
+            cluster_pm(pm_from, pm_to)
           end
         end
       end
     end
-    clust
+    self
   end
 
   def self.lat_lng_dist(lat1, lng1, lat2, lng2)
