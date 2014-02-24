@@ -9,6 +9,7 @@ class KMLHerd
         {:lat => lat, :lng => lng })
     )
     @pms << pm
+    pm
   end
 
   def kml
@@ -21,15 +22,16 @@ class KMLHerd
     kml_file.render
   end
 
-  private
-  def lat_lon_dist(lat1, lon1, lat2, lon2)
+  def self.lat_lon_dist(lat1, lon1, lat2, lon2)
+    # using 'haversine' formula with earth radius of 6371 km
+    # see http://www.movable-type.co.uk/scripts/latlong.html for examples
+    delta_lat = (lat2-lat1)/180.0 * Math::PI
+    delta_lon = (lon2-lon1)/180.0 * Math::PI
 
-    deltaLat = (lat2-lat1)/180 * Math::PI
-    deltaLon = (lon2-lon1)/180 * Math::PI
-
-    a = Math.sin(deltaLat/2) * Math.sin(deltaLat/2) +
-        Math.cos((lat1/180 * Math::PI)) * Math.cos((lat2/180 * Math::PI)) *
-        Math.sin(deltaLon/2) * Math.sin(deltaLon/2);
+    a = Math.sin(delta_lat/2) * Math.sin(delta_lat/2) +
+        Math.cos((lat1/180.0 * Math::PI)) *
+        Math.cos((lat2/180.0 * Math::PI)) *
+        Math.sin(delta_lon/2) * Math.sin(delta_lon/2);
 
     c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
 
