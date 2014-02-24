@@ -28,15 +28,16 @@ describe "RubyKmlHerd" do
     @kh.remove_placemark(pm4)
     @kh.kml.should_not include('<name>d</name>')
     @kh.kml.should_not include('<coordinates>11,11</coordinates>')
+    binding.pry
   end
 
   it 'calculates distance correctly' do
-    lat1 = @pm1.geometry.coordinates[0]
-    lng1 = @pm1.geometry.coordinates[1]
-    lat2 = @pm2.geometry.coordinates[0]
-    lng2 = @pm2.geometry.coordinates[1]
-    lat3 = @pm3.geometry.coordinates[0]
-    lng3 = @pm3.geometry.coordinates[1]
+    lat1 = @pm1.lat
+    lng1 = @pm1.lng
+    lat2 = @pm2.lat
+    lng2 = @pm2.lng
+    lat3 = @pm3.lat
+    lng3 = @pm3.lng
     KMLHerd::lat_lng_dist(lat1, lng1, lat2, lng2).should be(628.7577973618929)
     KMLHerd::lat_lng_dist(lat2, lng2, lat1, lng1).should be(628.7577973618929)
     KMLHerd::lat_lng_dist(lat2, lng2, lat3, lng3).should be(939.7843092932496)

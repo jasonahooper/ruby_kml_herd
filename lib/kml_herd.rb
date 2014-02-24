@@ -9,6 +9,14 @@ class KMLHerd
             ),
             :description => desc)
     end
+
+    def lat
+      return self.geometry.coordinates[0]
+    end
+
+    def lng
+      return self.geometry.coordinates[1]
+    end
   end
 
   def add_placemark(name, lat, lng, desc=nil)
@@ -42,10 +50,8 @@ class KMLHerd
     clust.placemarks.each do |pm_from|
       clust.placemarks.each do |pm_to|
         if pm_from != pm_to
-          if KMLHerd::lat_lng_dist(pm_from.geometry.coordinates[0],
-                                   pm_from.geometry.coordinates[1],
-                                   pm_to.geometry.coordinates[0],
-                                   pm_to.geometry.coordinates[1]) < 640 # for zoom 2 for now
+          if KMLHerd::lat_lng_dist(pm_from.lat, pm_from.lng,
+                                   pm_to.lat, pm_to.lng) < 640 # for zoom 2 for now
             pm_from.type = :cluster
             clust.remove_placemark(pm_to)
           end
