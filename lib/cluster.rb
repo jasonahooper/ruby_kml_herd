@@ -9,4 +9,13 @@ class Cluster < Placemark
   def add_placemark(pm)
     @placemarks << pm
   end
+
+  def lat=(lat)
+    self.geometry.coordinates[0] = lat
+  end
+
+  def lng=(lng)
+    self.geometry.coordinates[1] = lng
+  end
+
 end

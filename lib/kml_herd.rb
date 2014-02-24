@@ -26,6 +26,8 @@ class KMLHerd
       return
     end
     pm_from.add_placemark(pm_to)
+    pm_from.lat = (pm_from.lat + pm_to.lat)/2
+    pm_from.lng = (pm_from.lng + pm_to.lng)/2
     remove_placemark(pm_to)
   end
 
