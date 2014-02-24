@@ -19,7 +19,7 @@ class KMLHerd
   end
 
   def remove_placemark(pm)
-    binding.pry
+    @pms.select! { |pms| pms != pm }
     pm
   end
 

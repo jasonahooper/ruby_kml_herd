@@ -21,6 +21,15 @@ describe "RubyKmlHerd" do
     @kh.placemarks.count.should be(3)
   end
 
+  it 'removes placemarks' do
+    pm4 = @kh.add_placemark('d', 11, 11, 'test')
+    @kh.kml.should include('<name>d</name>')
+    @kh.kml.should include('<coordinates>11,11</coordinates>')
+    @kh.remove_placemark(pm4)
+    @kh.kml.should_not include('<name>d</name>')
+    @kh.kml.should_not include('<coordinates>11,11</coordinates>')
+  end
+
   it 'calculates distance correctly' do
     lat1 = @pm1.geometry.coordinates[0]
     lng1 = @pm1.geometry.coordinates[1]
