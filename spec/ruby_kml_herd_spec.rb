@@ -22,6 +22,10 @@ describe "RubyKmlHerd" do
     lon1 = @pm1.geometry.coordinates[1]
     lat2 = @pm2.geometry.coordinates[0]
     lon2 = @pm2.geometry.coordinates[1]
+    lat3 = @pm3.geometry.coordinates[0]
+    lon3 = @pm3.geometry.coordinates[1]
     KMLHerd::lat_lon_dist(lat1, lon1, lat2, lon2).should eq(628.7577973618929)
+    KMLHerd::lat_lon_dist(lat2, lon2, lat1, lon1).should eq(628.7577973618929)
+    KMLHerd::lat_lon_dist(lat2, lon2, lat3, lon3).should eq(939.7843092932496)
   end
 end
