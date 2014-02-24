@@ -44,7 +44,7 @@ describe "RubyKmlHerd" do
   end
 
   it 'clusters nearby points for a zoom level' do
-    cluster = KMLHerd::cluster(@kh, 2)
+    cluster = @kh.cluster(2)
     cluster.placemarks.count.should_not be(@kh.placemarks.count)
   end
 end

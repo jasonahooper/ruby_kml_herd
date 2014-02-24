@@ -45,8 +45,8 @@ class KMLHerd
     @pms
   end
 
-  def self.cluster(herd, zoom_level)
-    clust = herd.clone
+  def cluster(zoom_level)
+    clust = self.clone
     clust.placemarks.each do |pm_from|
       clust.placemarks.each do |pm_to|
         if pm_from != pm_to
