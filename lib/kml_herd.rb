@@ -37,20 +37,22 @@ class KMLHerd
     @pms
   end
 
-  def cluster(zoom_level)
-    cluster = self.clone
-    cluster.placemarks.each do |pm_from|
-      cluster.placemarks.each do |pm_to|
+  def self.cluster(herd, zoom_level)
+    clust = herd.clone
+    clust.placemarks.each do |pm_from|
+      clust.placemarks.each do |pm_to|
         if pm_from != pm_to
           if KMLHerd::lat_lng_dist(pm_from.geometry.coordinates[0],
                                    pm_from.geometry.coordinates[1],
                                    pm_to.geometry.coordinates[0],
-                                   pm_to.geometry.coordinates[1]) < 640
+                                   pm_to.geometry.coordinates[1]) < 640 # for zoom 2 for now
+            pm_from.type = :cluster
+            clust.remove_placemark(pm_to)
           end
         end
       end
     end
-    cluster
+    clust
   end
 
   def self.lat_lng_dist(lat1, lng1, lat2, lng2)
