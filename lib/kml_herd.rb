@@ -18,6 +18,7 @@ class KMLHerd
   def cluster_pm(pm_from, pm_to)
     if pm_from.class != Cluster && pm_to.class != Cluster
       cls = Cluster.new('cluster', pm_from.lat, pm_from.lng, 'cluster', pm_from)
+      return unless @pms.find_index(pm_from)
       @pms[@pms.find_index(pm_from)] = cls
       pm_from = cls
     elsif pm_to.class == Cluster && pm_from.class != Cluster
@@ -26,8 +27,8 @@ class KMLHerd
       return
     end
     pm_from.add_placemark(pm_to)
-    pm_from.lat = (pm_from.lat + pm_to.lat)/2
-    pm_from.lng = (pm_from.lng + pm_to.lng)/2
+    pm_from.lat = (pm_from.lat + pm_to.lat)/2.0
+    pm_from.lng = (pm_from.lng + pm_to.lng)/2.0
     remove_placemark(pm_to)
   end
 
