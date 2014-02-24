@@ -47,5 +47,9 @@ describe "RubyKmlHerd" do
     @kh.cluster!(2)
     @kh.placemarks.count.should_not be(pms)
     @kh.placemarks[0].class.should be(Cluster)
+    @kh.kml.should_not include('<name>a</name>')
+    @kh.kml.should_not include('<coordinates>0,0</coordinates>')
+    @kh.kml.should_not include('<name>b</name>')
+    @kh.kml.should_not include('<coordinates>4,4</coordinates>')
   end
 end
