@@ -58,4 +58,11 @@ describe "RubyKmlHerd" do
     @kh.kml.should_not include('<name>b</name>')
     @kh.kml.should_not include('<coordinates>-1,-1</coordinates>')
   end
+
+  it 'de-clusters and re-clusters the same data in the same way' do
+    @kh.cluster!(2)
+    pms = @kh.placemarks.count
+    @kh.cluster!(2)
+    @kh.placemarks.count.should be(pms)
+  end
 end

@@ -18,4 +18,8 @@ class Cluster < Placemark
     self.geometry.coordinates[1] = lng
   end
 
+  def placemarks
+    @placemarks
+  end
+
 end
