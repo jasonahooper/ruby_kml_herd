@@ -51,13 +51,12 @@ class KMLHerd
       self.placemarks.each do |pm_to|
         if pm_from != pm_to
           if KMLHerd::lat_lng_dist(pm_from.lat, pm_from.lng,
-                                   pm_to.lat, pm_to.lng) < 640 # for zoom 2 for now
+                      pm_to.lat, pm_to.lng) < (5120.0 / (zoom_level * 4))
             cluster_pm(pm_from, pm_to)
           end
         end
       end
     end
-    self
   end
 
   def self.lat_lng_dist(lat1, lng1, lat2, lng2)
