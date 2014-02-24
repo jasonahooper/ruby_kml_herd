@@ -23,14 +23,14 @@ describe "RubyKmlHerd" do
 
   it 'calculates distance correctly' do
     lat1 = @pm1.geometry.coordinates[0]
-    lon1 = @pm1.geometry.coordinates[1]
+    lng1 = @pm1.geometry.coordinates[1]
     lat2 = @pm2.geometry.coordinates[0]
-    lon2 = @pm2.geometry.coordinates[1]
+    lng2 = @pm2.geometry.coordinates[1]
     lat3 = @pm3.geometry.coordinates[0]
-    lon3 = @pm3.geometry.coordinates[1]
-    KMLHerd::lat_lon_dist(lat1, lon1, lat2, lon2).should be(628.7577973618929)
-    KMLHerd::lat_lon_dist(lat2, lon2, lat1, lon1).should be(628.7577973618929)
-    KMLHerd::lat_lon_dist(lat2, lon2, lat3, lon3).should be(939.7843092932496)
+    lng3 = @pm3.geometry.coordinates[1]
+    KMLHerd::lat_lng_dist(lat1, lng1, lat2, lng2).should be(628.7577973618929)
+    KMLHerd::lat_lng_dist(lat2, lng2, lat1, lng1).should be(628.7577973618929)
+    KMLHerd::lat_lng_dist(lat2, lng2, lat3, lng3).should be(939.7843092932496)
   end
 
   it 'clusters nearby points for a zoom level' do
