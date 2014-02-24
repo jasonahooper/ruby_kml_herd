@@ -49,7 +49,7 @@ describe "RubyKmlHerd" do
   end
 
   it 'clusters nearby points for a zoom level' do
-    pms = @kh.placemarks
+    pms = @kh.placemarks.count
     @kh.cluster!(2)
     @kh.placemarks.count.should_not be(pms)
     @kh.placemarks[0].class.should be(Cluster)
