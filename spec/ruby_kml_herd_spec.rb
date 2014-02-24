@@ -17,6 +17,10 @@ describe "RubyKmlHerd" do
     @kh.kml.should include('<coordinates>10,10</coordinates>')
   end
 
+  it 'keeps a record of the placemarks' do
+    @kh.placemarks.count.should be(3)
+  end
+
   it 'calculates distance correctly' do
     lat1 = @pm1.geometry.coordinates[0]
     lon1 = @pm1.geometry.coordinates[1]
@@ -24,8 +28,13 @@ describe "RubyKmlHerd" do
     lon2 = @pm2.geometry.coordinates[1]
     lat3 = @pm3.geometry.coordinates[0]
     lon3 = @pm3.geometry.coordinates[1]
-    KMLHerd::lat_lon_dist(lat1, lon1, lat2, lon2).should eq(628.7577973618929)
-    KMLHerd::lat_lon_dist(lat2, lon2, lat1, lon1).should eq(628.7577973618929)
-    KMLHerd::lat_lon_dist(lat2, lon2, lat3, lon3).should eq(939.7843092932496)
+    KMLHerd::lat_lon_dist(lat1, lon1, lat2, lon2).should be(628.7577973618929)
+    KMLHerd::lat_lon_dist(lat2, lon2, lat1, lon1).should be(628.7577973618929)
+    KMLHerd::lat_lon_dist(lat2, lon2, lat3, lon3).should be(939.7843092932496)
+  end
+
+  it 'clusters nearby points for a zoom level' do
+    cluster = @kh.cluster(2)
+    cluster.placemarks.count.should_not be(@kh.placemarks.count)
   end
 end

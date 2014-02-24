@@ -22,6 +22,21 @@ class KMLHerd
     kml_file.render
   end
 
+  def placemarks
+    @pms
+  end
+
+  def cluster(zoom_level)
+    cluster = self.clone
+    cluster.placemarks.each do |pm_from|
+      cluster.placemarks.each do |pm_to|
+        if pm_from != pm_to
+        end
+      end
+    end
+    cluster
+  end
+
   def self.lat_lon_dist(lat1, lon1, lat2, lon2)
     # using 'haversine' formula with earth radius of 6371 km
     # see http://www.movable-type.co.uk/scripts/latlong.html for examples
