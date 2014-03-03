@@ -11,8 +11,7 @@ class KMLHerd
   end
 
   def remove_placemark(pm)
-    @pms.select! { |pms| pms != pm }
-    pm
+    @pms.delete(pm)
   end
 
   def kml
